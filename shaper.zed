@@ -1,0 +1,14 @@
+{
+  original: this,
+  cleaned: {
+    date: time(Date),
+    amount: float64(Amount),
+    desc: lower(Description),
+    type: this["Transaction Type"],
+    account: lower(this["Account Name"]),
+    category: lower(Category)
+  }
+}
+| yield has_error(cleaned)
+  ? error({msg: "shaper error", original, cleaned}) 
+  : cleaned
